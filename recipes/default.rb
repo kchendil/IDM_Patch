@@ -19,7 +19,8 @@
 
 execute "Download the Patch" do
  user "root" 
- command "mkdir -p /tmp/engine-patch; wget http://isec-publish.labs.blr.novell.com/publish/Builds/IDM/dorado_sp2_patch3/Engine/20130614/IDM_engine_rl_Patch3.zip -O /tmp/engine-patch/IDM_engine_rl_Patch3.zip"
+ command "mkdir -p /tmp/engine-patch; wget http://164.99.86.253/publish/Builds/IDM/dorado_sp2_patch3/Engine/20130614/IDM_engine_rl_Patch3.zip -O /tmp/engine-patch/IDM_engine_rl_Patch3.zip"
+ not_if { ::File.exists?("/tmp/engine-patch/IDM_engine_rl_Patch3.zip")}
   action :run
 end
 
@@ -28,6 +29,8 @@ end
 execute "Unzip and Install the patch" do
  user "root" 
  command "cd /tmp/engine-patch; unzip /tmp/engine-patch/IDM_engine_rl_Patch3.zip; rpm -Uvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm"
+ 
+ not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
   action :run
 end
 
@@ -35,6 +38,7 @@ end
 execute "Restart ndsd" do
  user "root"
  command "/etc/init.d/ndsd restart" 
+ not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
   action :run
 end
 
