@@ -28,7 +28,7 @@ end
 
 execute "Unzip and Install the patch" do
  user "root" 
- command "cd /tmp/engine-patch; unzip /tmp/engine-patch/IDM_engine_rl_Patch3.zip; rpm -Uvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm"
+ command "cd /tmp/engine-patch; unzip /tmp/engine-patch/IDM_engine_rl_Patch3.zip; rpm -Ufvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm"
  
  not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
   action :run
