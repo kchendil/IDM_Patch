@@ -42,7 +42,7 @@ end
 
 execute "Install the patch" do
  user "root" 
- command "cd /tmp/engine-patch; rpm -Uvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm" 
+ command "cd /tmp/engine-patch; rpm -Uvh /tmp/engine-patch/*.rpm" 
  not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
   action :run
 end
