@@ -19,16 +19,30 @@
 
 execute "Download the Patch" do
  user "root" 
- command "mkdir -p /tmp/engine-patch; wget http://164.99.86.253/publish/Builds/IDM/dorado_sp2_patch3/Engine/20130614/IDM_engine_rl_Patch3.zip -O /tmp/engine-patch/IDM_engine_rl_Patch3.zip"
- not_if { ::File.exists?("/tmp/engine-patch/IDM_engine_rl_Patch3.zip")}
+ command "mkdir -p /tmp/engine-patch; wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm -O /tmp/engine-patch/novell-DXMLbasenoarch.rpm"
+ not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLbasenoarch.rpm")}
   action :run
 end
 
 
-
-execute "Unzip and Install the patch" do
+execute "Download the Patch 2" do
  user "root" 
- command "cd /tmp/engine-patch; unzip /tmp/engine-patch/IDM_engine_rl_Patch3.zip; rpm -Uvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm" 
+ command "wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLengnnoarch.rpm -O /tmp/engine-patch/novell-DXMLengnnoarch.rpm"
+ not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLengnnoarch.rpm")}
+  action :run
+end
+
+execute "Download the Patch 3 " do
+ user "root" 
+ command "wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLeventx.rpm -O /tmp/engine-patch/novell-DXMLeventx.rpm"
+ not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLeventx.rpm")}
+  action :run
+end
+
+
+execute "Install the patch" do
+ user "root" 
+ command "cd /tmp/engine-patch; rpm -Uvh /tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/*.rpm" 
  not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
   action :run
 end
