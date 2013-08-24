@@ -16,6 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['idm_engine_patch']['patch_zip_url'] = "http://164.99.86.253/publish/Builds/IDM/dorado_sp2_patch3/Engine/20130614/IDM_engine_rl_Patch3.zip"
+default['idm_engine_patch']['patch_url'] = "http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/"
 
 

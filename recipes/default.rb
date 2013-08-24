@@ -17,33 +17,23 @@
 # limitations under the License.
 #
 
+
+engine_patch_build_loc=node['idm_engine_patch']['patch_url']
+
+
 execute "Download the Patch" do
  user "root" 
- command "mkdir -p /tmp/engine-patch; wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm -O /tmp/engine-patch/novell-DXMLbasenoarch.rpm"
+ command "mkdir -p /tmp/engine-patch; wget -nd -r -P /tmp/engine-patch -A rpm #{engine_patch_build_loc}"
  not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLbasenoarch.rpm")}
+ #Do not execute if all the rpms are present
   action :run
 end
-
-
-execute "Download the Patch 2" do
- user "root" 
- command "wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLengnnoarch.rpm -O /tmp/engine-patch/novell-DXMLengnnoarch.rpm"
- not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLengnnoarch.rpm")}
-  action :run
-end
-
-execute "Download the Patch 3 " do
- user "root" 
- command "wget http://164.99.178.154/Jade_for_vagrant/cd-image/patch/Linux/engine/64-bit/novell-DXMLeventx.rpm -O /tmp/engine-patch/novell-DXMLeventx.rpm"
- not_if { ::File.exists?("/tmp/engine-patch/novell-DXMLeventx.rpm")}
-  action :run
-end
-
 
 execute "Install the patch" do
  user "root" 
  command "cd /tmp/engine-patch; rpm -Uvh /tmp/engine-patch/*.rpm" 
  not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
+ #If the RPM is not upgraded do not execute this, need to check the rpm versions
   action :run
 end
 
@@ -52,6 +42,7 @@ execute "Restart ndsd" do
  user "root"
  command "/etc/init.d/ndsd restart" 
  not_if { ::File.exists?("/tmp/engine-patch/cd-image/patch/Linux/engine/64-bit/novell-DXMLbasenoarch.rpm")}
+ #If the RPM is not upgraded do not execute this, need to check the rpm versions
   action :run
 end
 

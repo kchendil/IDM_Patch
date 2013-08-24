@@ -1,9 +1,9 @@
 {
-  "name": "tomcat_latest",
-  "description": "Installs and Configures latest Apache Tomcat 6 or 7",
-  "long_description": "Description\n===========\n\nInstalls and configures latest Apache Tomcat version 6 or 7 or specified version",
+  "name": "idm_engine_patch",
+  "description": "Installs IDM Engine Patch",
+  "long_description": "Installs IDM Engine Patch",
   "maintainer": "Chendil Kumar Manoharan",
-  "maintainer_email": "mkchendil@gmail.com",
+  "maintainer_email": "kchendil@netiq.com",
   "license": "Apache 2.0",
   "platforms": {
     "suse": ">= 0.0.0",
@@ -27,7 +27,7 @@
   "groupings": {
   },
   "recipes": {
-    "tomcat::default": "Installs and Configures latest Apache Tomcat 6 or 7 or specified version"
+    "idm_engine_patch::default": "Installs IDM Engine Patch"
   },
-  "version": "0.1.10"
+  "version": "0.1.11"
 }
